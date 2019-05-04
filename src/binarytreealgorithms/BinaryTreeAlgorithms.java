@@ -12,7 +12,7 @@ public class BinaryTreeAlgorithms {
 		BinaryTree binaryTree = new BinaryTree();
 		while (true) {
 			Utils.println(" Enter 0 for creating root node");
-			Utils.println(" Enter 1 for insert");
+			Utils.println(" Enter 1 for Binary Search insert");
 			Utils.println(" Enter 2 for insert to left Of");
 			Utils.println(" Enter 3 for insert to right of");
 			Utils.println(" Enter 4 for level Order traversal/BFS");
@@ -21,6 +21,7 @@ public class BinaryTreeAlgorithms {
 			Utils.println(" Enter 7 for post Order Traversal/DFS");
 			Utils.println(" Enter 8 for Height of Binary Tree");
 			Utils.println(" Enter 9 for Finding the second largest number");
+			Utils.println(" Enter 10 for Height of Binary Search Tree from Array");
 			Utils.println("_______Enter your choice______");
 			choice = scanner.nextInt();
 			switch (choice) {
@@ -71,6 +72,11 @@ public class BinaryTreeAlgorithms {
 			case 9:
 				int secondLargestNumber = binaryTree.findSecondLargestNumber(binaryTree.getRootNode());
 				Utils.println(" Second largest number in tree " + secondLargestNumber);
+				break;
+			case 10:
+				int[] array = new int[] {2,1,3,4,5};
+				int nHeight = binaryTree.findHeightofBinarySearchTreeFromArray(array);
+				Utils.println("Height "+nHeight);
 				break;
 			}
 		}

@@ -40,30 +40,29 @@ public class BinaryTree {
 	 * @param node
 	 * @param data
 	 */
-	public void insertBinarySearchTree(Node node, int data) {
-		Node ptr = null;
+	public Node insertBinarySearchTree(Node root, int data) {
+		 Node ptr = root;
 
-		if (node == null) {
-			ptr = new Node(data, null, null);
-			start = ptr;
-			return;
-		}
-
-		if (data < node.getData()) {
-			if (node.getPrev() == null) {
-				ptr = new Node(data, null, null);
-				node.setPrev(ptr);
-				return;
-			}
-			insertBinarySearchTree(node.getPrev(), data);
-		} else if (data > node.getData()) {
-			if (node.getNext() == null) {
-				ptr = new Node(data, null, null);
-				node.setNext(ptr);
-				return;
-			}
-			insertBinarySearchTree(node.getNext(), data);
-		}
+	        while(ptr.getPrev() != null || ptr.getNext() != null) {
+	            if(data < ptr.data) {
+	                if(ptr.getPrev() == null) {
+	                    break;
+	                }
+	                ptr = ptr.getPrev();
+	            }else {
+	                if(ptr.getNext() == null) {
+	                    break;
+	                }
+	                ptr = ptr.getNext();
+	            }
+	        }  
+	        
+	        if(data < ptr.data) {
+	        	ptr.setPrev(new Node(data, null ,null));
+	        }else {
+	        	ptr.setNext(new Node(data, null, null));
+	        }
+	        return root;
 	}
 
 	/**
@@ -243,5 +242,30 @@ public class BinaryTree {
 		findSecondLargestNumber(node.getPrev(), count);
 
 		return -1;
+	}
+	
+	/**
+	 * 
+	 * @param array
+	 * @return height of binary tree
+	 */
+	public int findHeightofBinarySearchTreeFromArray(int[] array)
+	{
+		/**
+		 * create root node
+		 */
+		createRootNode(array[0]);
+
+		/**
+		 *  create a binary tree
+		 */
+		for (int i = 1; i < array.length; i++) {
+			insertBinarySearchTree(getRootNode(), array[i]);
+		}
+
+		/**
+		 *  find the height of binary search tree
+		 */
+		return calculateHeight(getRootNode());
 	}
 }
