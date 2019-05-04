@@ -10,20 +10,20 @@ package binarytreealgorithms;
  */
 public class Node {
 	
-	int data;
-	Node prev;
-	Node next;
+	private int data;
+	private Node left;
+	private Node right;
 	
 	/**
 	 * 
 	 * @param data Data to create a list with
-	 * @param prev Address of previous node
-	 * @param next Address of next node
+	 * @param left Address of left node
+	 * @param right Address of right node
 	 */
-	Node(int data,Node prev,Node next){
+	Node(int data,Node left,Node right){
 		this.data = data;
-		this.prev = prev;
-		this.next = next;
+		this.left = left;
+		this.right = right;
 	}
 
 	/**
@@ -44,34 +44,34 @@ public class Node {
 
 	/**
 	 * 
-	 * @return previous Node
+	 * @return leftious Node
 	 */
-	public Node getPrev() {
-		return prev;
+	public Node getLeft() {
+		return left;
 	}
 
 	/**
 	 * 
-	 * @param prev set the previous to the current node
+	 * @param left set the leftious to the current node
 	 */
-	public void setPrev(Node prev) {
-		this.prev = prev;
+	public void setLeft(Node left) {
+		this.left = left;
 	}
 
 	/**
 	 * 
-	 * @return next Node
+	 * @return right Node
 	 */
-	public Node getNext() {
-		return next;
+	public Node getRight() {
+		return right;
 	}
 
 	/**
 	 * 
-	 * @param next set next Node to current Node
+	 * @param right set right Node to current Node
 	 */
-	public void setNext(Node next) {
-		this.next = next;
+	public void setRight(Node right) {
+		this.right = right;
 	}
 }
 	

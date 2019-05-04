@@ -2,270 +2,312 @@ package binarytreealgorithms;
 
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.Stack;
 
 public class BinaryTree {
 
-	private Node start = null;
-	private int size = 0;
+    private Node start = null;
+    private int size = 0;
 
-	private Queue<Node> queue = new LinkedList<>();
+    private Queue<Node> queue = new LinkedList<>();
 
-	BinaryTree() {
+    BinaryTree() {
 
-	}
-	
-	public class Count
-	{
-		int nCount;
-		Count()
-		{
-			nCount = 0;
-		}
-	}
+    }
 
-	/**
-	 * 
-	 * @param data
-	 */
-	public void createRootNode(int data) {
-		Node ptr;
-		if (start == null) {
-			ptr = new Node(data, null, null);
-			start = ptr;
-		}
-	}
+    public class Count {
+        int nCount;
 
-	/**
-	 * 
-	 * @param node
-	 * @param data
-	 */
-	public Node insertBinarySearchTree(Node root, int data) {
-		 Node ptr = root;
+        Count() {
+            nCount = 0;
+        }
+    }
 
-	        while(ptr.getPrev() != null || ptr.getNext() != null) {
-	            if(data < ptr.data) {
-	                if(ptr.getPrev() == null) {
-	                    break;
-	                }
-	                ptr = ptr.getPrev();
-	            }else {
-	                if(ptr.getNext() == null) {
-	                    break;
-	                }
-	                ptr = ptr.getNext();
-	            }
-	        }  
-	        
-	        if(data < ptr.data) {
-	        	ptr.setPrev(new Node(data, null ,null));
-	        }else {
-	        	ptr.setNext(new Node(data, null, null));
-	        }
-	        return root;
-	}
+    /**
+     * @param data
+     */
+    public void createRootNode(int data) {
+        Node ptr;
+        if (start == null) {
+            ptr = new Node(data, null, null);
+            start = ptr;
+        }
+    }
 
-	/**
-	 * 
-	 * @param node
-	 * @param data
-	 */
-	public void insertToTheLeftof(int node, int data) {
-		Node advancedPtr;
-		Queue<Node> queue = new LinkedList<Node>();
-		size++;
-		Node ptr = new Node(data, null, null);
-		advancedPtr = start;
-		queue.add(advancedPtr);
-		while (!queue.isEmpty()) {
-			Node topNode = queue.poll();
+    /**
+     * @param root
+     * @param data
+     */
+    public Node insertBinarySearchTree(Node root, int data) {
+        Node ptr = root;
 
-			if (topNode.getData() == node) {
-				topNode.setPrev(ptr);
-				queue.clear();
-				break;
-			} else {
-				if (topNode.getPrev() != null) {
-					queue.add(topNode.getPrev());
-				}
-				if (topNode.getNext() != null) {
-					queue.add(topNode.getNext());
-				}
-			}
-		}
-	}
+        if (root == null) {
+            root = new Node(data, null, null);
+            return root;
+        }
 
-	/**
-	 * 
-	 * @param node
-	 * @param data
-	 */
-	public void insertToTheRightOf(int node, int data) {
-		Node advancedPtr;
-		Queue<Node> queue = new LinkedList<Node>();
-		size++;
-		Node ptr = new Node(data, null, null);
-		advancedPtr = start;
-		queue.add(advancedPtr);
-		while (!queue.isEmpty()) {
-			Node topNode = queue.poll();
-			if (topNode.getData() == node) {
-				topNode.setNext(ptr);
-				queue.clear();
-				break;
-			} else {
-				if (topNode.getPrev() != null)
-					queue.add(topNode.getPrev());
-				if (topNode.getNext() != null)
-					queue.add(topNode.getNext());
-			}
-		}
-	}
+        while (ptr.getLeft() != null || ptr.getRight() != null) {
+            if (data < ptr.getData()) {
+                if (ptr.getLeft() == null) {
+                    break;
+                }
+                ptr = ptr.getLeft();
+            } else {
+                if (ptr.getRight() == null) {
+                    break;
+                }
+                ptr = ptr.getRight();
+            }
+        }
 
-	/**
-	 * Level Order Traversal
-	 */
-	public void traverse() {
-		Node ptr;
-		if (start == null) {
-			Utils.println("List is empty!!!!");
-		} else {
-			queue.add(start);
-			while (queue.size() > 0) {
-				ptr = queue.poll();
-				Utils.println("" + ptr.getData());
-				if (ptr.getPrev() != null) {
-					queue.add(ptr.getPrev());
-				}
+        if (data < ptr.getData()) {
+            ptr.setLeft(new Node(data, null, null));
+        } else {
+            ptr.setRight(new Node(data, null, null));
+        }
+        return ptr;
+    }
 
-				if (ptr.getNext() != null) {
-					queue.add(ptr.getNext());
-				}
-			}
-		}
-	}
+    /**
+     * @param node
+     * @param data
+     */
+    public void insertToTheLeftof(int node, int data) {
+        Node advancedPtr;
+        Queue<Node> queue = new LinkedList<>();
+        size++;
+        Node ptr = new Node(data, null, null);
+        advancedPtr = start;
+        queue.add(advancedPtr);
+        while (!queue.isEmpty()) {
+            Node topNode = queue.poll();
 
-	/**
-	 * 
-	 * @return returns root node
-	 */
-	public Node getRootNode() {
-		return start;
-	}
+            if (topNode.getData() == node) {
+                topNode.setLeft(ptr);
+                queue.clear();
+                break;
+            } else {
+                if (topNode.getLeft() != null) {
+                    queue.add(topNode.getLeft());
+                }
+                if (topNode.getRight() != null) {
+                    queue.add(topNode.getRight());
+                }
+            }
+        }
+    }
 
-	/**
-	 * 
-	 * @param node
-	 *            ==> root Node
-	 */
-	public void inOrderTraversal(Node node) {
-		if (node == null)
-			return;
+    /**
+     * @param node
+     * @param data
+     */
+    public void insertToTheRightOf(int node, int data) {
+        Node advancedPtr;
+        Queue<Node> queue = new LinkedList<>();
+        size++;
+        Node ptr = new Node(data, null, null);
+        advancedPtr = start;
+        queue.add(advancedPtr);
+        while (!queue.isEmpty()) {
+            Node topNode = queue.poll();
+            if (topNode.getData() == node) {
+                topNode.setRight(ptr);
+                queue.clear();
+                break;
+            } else {
+                if (topNode.getLeft() != null)
+                    queue.add(topNode.getLeft());
+                if (topNode.getRight() != null)
+                    queue.add(topNode.getRight());
+            }
+        }
+    }
 
-		inOrderTraversal(node.getPrev());
-		Utils.println("" + node.getData());
-		inOrderTraversal(node.getNext());
-	}
+    /**
+     * Level Order Traversal
+     */
+    public void traverse() {
+        Node ptr;
+        if (start == null) {
+            Utils.println("List is empty!!!!");
+        } else {
+            queue.add(start);
+            while (queue.size() > 0) {
+                ptr = queue.poll();
+                Utils.println("" + ptr.getData());
+                if (ptr.getLeft() != null) {
+                    queue.add(ptr.getLeft());
+                }
 
-	/**
-	 * 
-	 * @param node
-	 *            ==> root Node
-	 */
-	public void preOrderTraversal(Node node) {
+                if (ptr.getRight() != null) {
+                    queue.add(ptr.getRight());
+                }
+            }
+        }
+    }
 
-		if (node == null)
-			return;
+    /**
+     * @return returns root node
+     */
+    public Node getRootNode() {
+        return start;
+    }
 
-		Utils.println("" + node.getData());
-		preOrderTraversal(node.getPrev());
-		preOrderTraversal(node.getNext());
+    /**
+     * @param node ==> root Node
+     */
+    public void inOrderTraversal(Node node) {
+        if (node == null)
+            return;
 
-	}
+        inOrderTraversal(node.getLeft());
+        Utils.println("" + node.getData());
+        inOrderTraversal(node.getRight());
+    }
 
-	/**
-	 * 
-	 * @param node
-	 *            ==> root Node
-	 */
-	public void postOrderTraversal(Node node) {
-		if (node == null)
-			return;
+    /**
+     * @param node ==> root Node
+     */
+    public void preOrderTraversal(Node node) {
 
-		postOrderTraversal(node.getPrev());
-		postOrderTraversal(node.getNext());
-		Utils.println("" + node.getData());
-	}
+        if (node == null)
+            return;
 
-	/**
-	 * 
-	 * @return size of binary Tree
-	 */
-	public int size() {
-		return size;
-	}
+        Utils.println("" + node.getData());
+        preOrderTraversal(node.getLeft());
+        preOrderTraversal(node.getRight());
 
-	/**
-	 * 
-	 */
-	public int calculateHeight(Node node) {
-		if (node == null)
-			return -1;
+    }
 
-		int leftHeight = calculateHeight(node.getPrev());
-		int rightHeight = calculateHeight(node.getNext());
-		if (leftHeight > rightHeight)
-			return leftHeight + 1;
-		else
-			return rightHeight + 1;
-	}
-	
-	public int findSecondLargestNumber(Node node) {
-		Count count = new Count();
-		return findSecondLargestNumber(node, count);
-	}
-	/**
-	 * 
-	 * @param node
-	 * @return second largest number
-	 */
-	private int findSecondLargestNumber(Node node, Count count) {
-		if (node == null || count.nCount >= 2) {
-			return -2;
-		}
+    /**
+     * @param node ==> root Node
+     */
+    public void postOrderTraversal(Node node) {
+        if (node == null)
+            return;
 
-		findSecondLargestNumber(node.getNext(), count);
-		count.nCount++;
-		if (count.nCount == 2) {
-			return node.getData();
-		}
-		findSecondLargestNumber(node.getPrev(), count);
+        postOrderTraversal(node.getLeft());
+        postOrderTraversal(node.getRight());
+        Utils.println("" + node.getData());
+    }
 
-		return -1;
-	}
-	
-	/**
-	 * 
-	 * @param array
-	 * @return height of binary tree
-	 */
-	public int findHeightofBinarySearchTreeFromArray(int[] array)
-	{
-		/**
-		 * create root node
-		 */
-		createRootNode(array[0]);
+    /**
+     * @return size of binary Tree
+     */
+    public int size() {
+        return size;
+    }
 
-		/**
-		 *  create a binary tree
-		 */
-		for (int i = 1; i < array.length; i++) {
-			insertBinarySearchTree(getRootNode(), array[i]);
-		}
+    /**
+     *
+     */
+    public int calculateHeight(Node node) {
+        if (node == null)
+            return -1;
 
-		/**
-		 *  find the height of binary search tree
-		 */
-		return calculateHeight(getRootNode());
-	}
+        int leftHeight = calculateHeight(node.getLeft());
+        int rightHeight = calculateHeight(node.getRight());
+        if (leftHeight > rightHeight)
+            return leftHeight + 1;
+        else
+            return rightHeight + 1;
+    }
+
+    public int findSecondLargestNumber(Node node) {
+        Count count = new Count();
+        return findSecondLargestNumber(node, count);
+    }
+
+    /**
+     * @param node
+     * @return second largest number
+     */
+    private int findSecondLargestNumber(Node node, Count count) {
+        if (node == null || count.nCount >= 2) {
+            return -2;
+        }
+
+        findSecondLargestNumber(node.getRight(), count);
+        count.nCount++;
+        if (count.nCount == 2) {
+            return node.getData();
+        }
+        findSecondLargestNumber(node.getLeft(), count);
+
+        return -1;
+    }
+
+    /**
+     * @param array
+     * @return height of binary tree
+     */
+    public int findHeightofBinarySearchTreeFromArray(int[] array) {
+        /**
+         * create root node
+         */
+        createRootNode(array[0]);
+
+        /**
+         *  create a binary tree
+         */
+        for (int i = 1; i < array.length; i++) {
+            insertBinarySearchTree(getRootNode(), array[i]);
+        }
+
+        /**
+         *  find the height of binary search tree
+         */
+        return calculateHeight(getRootNode());
+    }
+
+    /**
+     * a function to print zig zag binary tree
+     */
+    public void printZigZag(Node rootNode) {
+
+        if (rootNode == null)
+            return;
+        boolean rightToLeft = true;
+
+        Stack<Node> nodeStack = new Stack<>();
+        Stack<Node> nextNodeStack = new Stack<>();
+        nodeStack.add(rootNode);
+
+        while (!nodeStack.isEmpty()) {
+
+            Node node = nodeStack.pop();
+            System.out.println(node.getData());
+
+            if (rightToLeft) {
+                if (node.getLeft() != null) {
+                    nextNodeStack.add(node.getLeft());
+                }
+
+                if (node.getRight() != null) {
+                    nextNodeStack.add(node.getRight());
+                }
+            } else {
+                if (node.getRight() != null) {
+                    nextNodeStack.add(node.getRight());
+                }
+
+                if (node.getLeft() != null) {
+                    nextNodeStack.add(node.getLeft());
+                }
+            }
+
+            if (nodeStack.isEmpty()) {
+                Stack<Node> temp;
+                temp = nodeStack;
+                nodeStack = nextNodeStack;
+                nextNodeStack = temp;
+
+                if (rightToLeft) {
+                    rightToLeft = false;
+                } else {
+                    rightToLeft = true;
+                }
+            }
+        }
+    }
 }
